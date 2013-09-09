@@ -7,13 +7,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
-import com.lishman.springdata.repository.MongoContinentRepository;
+import com.lishman.springdata.dao.DataAccessObjectPackage;
+import com.lishman.springdata.repository.RepositoryPackage;
 import com.mongodb.MongoClient;
 import com.mongodb.WriteConcern;
 
 @Configuration
-@ComponentScan(basePackageClasses=MongoContinentRepository.class)
-@EnableMongoRepositories(basePackages="com.lishman.springdata.repository")
+@ComponentScan(basePackageClasses=DataAccessObjectPackage.class)
+@EnableMongoRepositories(basePackageClasses=RepositoryPackage.class)
 public class MongoConfig extends AbstractMongoConfiguration {
     
     // ---------------------------------------------------- MongoDb

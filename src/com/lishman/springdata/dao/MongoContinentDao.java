@@ -1,4 +1,4 @@
-package com.lishman.springdata.repository;
+package com.lishman.springdata.dao;
 
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.lishman.springdata.domain.Continent;
 
 @Repository
-public class MongoContinentRepository implements ContinentRepository {
+public class MongoContinentDao implements ContinentDao {
     
     @Autowired private MongoOperations operations;
 

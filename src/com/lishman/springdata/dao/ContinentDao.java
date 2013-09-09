@@ -1,10 +1,10 @@
-package com.lishman.springdata.repository;
+package com.lishman.springdata.dao;
 
 import java.util.List;
 
 import com.lishman.springdata.domain.Continent;
 
-public interface ContinentRepository {
+public interface ContinentDao {
     
     public List<Continent> findAll();
 
