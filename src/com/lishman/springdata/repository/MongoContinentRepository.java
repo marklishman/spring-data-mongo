@@ -1,8 +1,9 @@
-package com.lishman.springdata.dao;
+package com.lishman.springdata.repository;
 
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.lishman.springdata.domain.Continent;
 
 @Repository
-public class ContinentMongoDao implements ContinentDao {
+public class MongoContinentRepository implements ContinentRepository {
     
     @Autowired private MongoOperations operations;
 
@@ -22,8 +23,8 @@ public class ContinentMongoDao implements ContinentDao {
     }
 
     @Override
-    public Continent findOne(String id) {
-        return operations.findById(id, Continent.class);
+    public Continent findOne(Integer id) {
+        return operations.findById(BigInteger.valueOf(id), Continent.class);
     }
 
     @Override
@@ -38,7 +39,7 @@ public class ContinentMongoDao implements ContinentDao {
     }
 
     @Override
-    public void remove(Continent continent) {
+    public void delete(Continent continent) {
         operations.remove(continent);
     }
 

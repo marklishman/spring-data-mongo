@@ -1,17 +1,20 @@
 package com.lishman.springdata.domain;
 
+import java.math.BigInteger;
+
+import org.springframework.data.annotation.Id;
+
 
 
 public class AbstractDocument {
 
-    // TODO doesn't work with @Id or BigDecimal
-    private String id;
+    @Id private BigInteger id;
 
-    public void setId(String id) {
+    public void setId(BigInteger id) {
         this.id = id;
     }
 
-    public String getId() {
+    public BigInteger getId() {
         return id;
     }
 

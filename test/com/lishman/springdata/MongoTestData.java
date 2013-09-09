@@ -1,5 +1,6 @@
 package com.lishman.springdata;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -31,13 +32,13 @@ public class MongoTestData {
 
         // ------------------------------------------------ Continents
         
-        Continent africa         = new Continent("1", "Africa");
-        Continent asia           = new Continent("2", "Asia");
-        Continent europe         = new Continent("3", "Europe");
-        Continent northAmerica   = new Continent("4", "North America");
-        Continent southAmerica   = new Continent("5", "South America");
-        Continent australia      = new Continent("6", "Australia");
-        Continent antarctica     = new Continent("7", "Antarctica");
+        Continent africa         = new Continent(1, "Africa");
+        Continent asia           = new Continent(2, "Asia");
+        Continent europe         = new Continent(3, "Europe");
+        Continent northAmerica   = new Continent(4, "North America");
+        Continent southAmerica   = new Continent(5, "South America");
+        Continent australia      = new Continent(6, "Australia");
+        Continent antarctica     = new Continent(7, "Antarctica");
         
         mongoOps.insert(africa);
         mongoOps.insert(asia);
@@ -65,9 +66,9 @@ public class MongoTestData {
         
         // ------------------------------------------------ Cities
 
-        mongoOps.insert(new City("1", "Tokyo", japan, Arrays.asList(new String[]{"Mount Fuji", "Tokyo Skytree", "Disneyland"})));
-        mongoOps.insert(new City("2", "Munich", germany, Arrays.asList(new String[]{"English Garden", "BMW Museum"})));
-        mongoOps.insert(new City("3", "Berlin", germany, Arrays.asList(new String[]{"Brandenburg Gate", "Berlin TV Tower", "Reichstag building"})));
+        mongoOps.insert(new City(new BigInteger("1"), "Tokyo", japan, Arrays.asList(new String[]{"Mount Fuji", "Tokyo Skytree", "Disneyland"})));
+        mongoOps.insert(new City(new BigInteger("2"), "Munich", germany, Arrays.asList(new String[]{"English Garden", "BMW Museum"})));
+        mongoOps.insert(new City(new BigInteger("3"), "Berlin", germany, Arrays.asList(new String[]{"Brandenburg Gate", "Berlin TV Tower", "Reichstag building"})));
 
         // ------------------------------------------------ Olympic Medals
         

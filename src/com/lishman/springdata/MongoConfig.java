@@ -4,15 +4,16 @@ package com.lishman.springdata;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
+import com.lishman.springdata.repository.MongoContinentRepository;
 import com.mongodb.MongoClient;
 import com.mongodb.WriteConcern;
 
 @Configuration
-@Profile("mongodb")
+@ComponentScan(basePackageClasses=MongoContinentRepository.class)
+@EnableMongoRepositories(basePackages="com.lishman.springdata.repository")
 public class MongoConfig extends AbstractMongoConfiguration {
     
     // ---------------------------------------------------- MongoDb
@@ -29,12 +30,12 @@ public class MongoConfig extends AbstractMongoConfiguration {
         client.setWriteConcern(WriteConcern.SAFE);
         return client;
     }
-    
-    // avoid reflection lookups
-    @Override
-    protected String getMappingBasePackage() {
-        return "com.lishman.springdata.mongo.domain";
-    }
+
+    // TODO not sure what effect this has
+//    @Override
+//    protected String getMappingBasePackage() {
+//        return "com.lishman.springdata.domain";
+//    }
 
     // ---------------------------------------------------- Test Data
 
@@ -42,19 +43,5 @@ public class MongoConfig extends AbstractMongoConfiguration {
     public MongoTestData getTestMongoDbData() {
         return new MongoTestData();
     }
-    
-    // ---------------------------------------------------- Repository
-
-    @Configuration
-    @Profile("repo")
-    @EnableMongoRepositories(basePackages="com.lishman.springdata.mongo.repository")
-    public static class MongoRepositoryConfig {}
-
-    // ---------------------------------------------------- DAO
-    
-    @Configuration
-    @Profile("dao")
-    @ComponentScan("com.lishman.springdata.mongo.dao")
-    public static class MongoDaoConfig {}
     
 }

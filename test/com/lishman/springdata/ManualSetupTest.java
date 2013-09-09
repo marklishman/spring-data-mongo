@@ -19,7 +19,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 
-public class ManualUsageTest {
+public class ManualSetupTest {
     
     private MongoClient client;
     
@@ -42,7 +42,7 @@ public class ManualUsageTest {
         MappingMongoConverter converter = new MappingMongoConverter(factory, context);
 
         DBObject asia = new BasicDBObject();
-        converter.write(new Continent("1", "Asia"), asia);
+        converter.write(new Continent(1, "Asia"), asia);
         System.out.println(asia);
         
     }

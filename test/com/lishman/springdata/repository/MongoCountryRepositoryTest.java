@@ -5,6 +5,8 @@ import static org.junit.Assert.assertThat;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
+import java.math.BigInteger;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,9 +26,9 @@ import com.lishman.springdata.domain.Country;
 @ContextConfiguration(classes={MongoConfig.class})
 @ActiveProfiles({"mongodb", "repo"})
 @RunWith(SpringJUnit4ClassRunner.class)
-public class ContinentMongoRepositoryTest {
+public class MongoCountryRepositoryTest {
 
-    @Autowired private CountryMongoRepository countryRepo;
+    @Autowired private MongoCountryRepository countryRepo;
     
     @Autowired private MongoTestData testData;
     @Autowired private MongoOperations mongoOps;
@@ -50,7 +52,7 @@ public class ContinentMongoRepositoryTest {
     
     @Test
     public void testFindOne() {
-        String australiaId = countryRepo.findAll().iterator().next().getId();
+        BigInteger australiaId = countryRepo.findAll().iterator().next().getId();
         
         Country country = countryRepo.findOne(australiaId);
         
@@ -89,7 +91,7 @@ public class ContinentMongoRepositoryTest {
     public void testRemove() {
         
         Country serbia = mongoOps.findOne(query(where("name").is("Serbia")), Country.class);
-        String serbiaId = serbia.getId();
+        BigInteger serbiaId = serbia.getId();
         
         countryRepo.delete(serbia);
         

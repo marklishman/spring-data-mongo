@@ -1,15 +1,16 @@
-package com.lishman.springdata.dao;
+package com.lishman.springdata.repository;
+
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
-import static org.hamcrest.Matchers.equalTo;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -17,15 +18,12 @@ import com.lishman.springdata.MongoConfig;
 import com.lishman.springdata.MongoTestData;
 import com.lishman.springdata.domain.Continent;
 
-import static org.junit.Assert.assertThat;
-
 @Configuration
 @ContextConfiguration(classes={MongoConfig.class})
-@ActiveProfiles({"mongodb", "dao"})
 @RunWith(SpringJUnit4ClassRunner.class)
-public class ContinentMongoDaoTest {
+public class MongoContinentRepositoryTest {
 
-    @Autowired private ContinentDao continentDao;
+    @Autowired private ContinentRepository continentRepository;
     
     @Autowired private MongoTestData testData;
     @Autowired private MongoOperations mongoOps;
@@ -40,7 +38,7 @@ public class ContinentMongoDaoTest {
     @Test
     public void testFindAll() {
 
-        List<Continent> continents = continentDao.findAll();
+        List<Continent> continents = continentRepository.findAll();
 
         assertThat(continents.size(), equalTo(7));
     }
@@ -50,7 +48,7 @@ public class ContinentMongoDaoTest {
     @Test
     public void testFindOne() {
         
-        Continent continent = continentDao.findOne("3");
+        Continent continent = continentRepository.findOne(3);
         
         assertThat(continent.getName(), equalTo("Europe"));
         
@@ -61,9 +59,9 @@ public class ContinentMongoDaoTest {
     @Test
     public void testFindByName() {
         
-        Continent continent = continentDao.findByName("Asia");
+        Continent continent = continentRepository.findByName("Asia");
         
-        assertThat(continent.getId(), equalTo("2"));
+        assertThat(continent.getId().toString(), equalTo("2"));
         
     }
 
@@ -72,7 +70,7 @@ public class ContinentMongoDaoTest {
     @Test
     public void testSave() {
         
-        continentDao.save(new Continent("10", "another continent"));
+        continentRepository.save(new Continent(10, "another continent"));
         
         assertThat(mongoOps.findById("10", Continent.class).getName(), equalTo("another continent"));
         
@@ -83,7 +81,7 @@ public class ContinentMongoDaoTest {
     @Test
     public void testRemove() {
         
-        continentDao.remove(mongoOps.findById("1", Continent.class));
+        continentRepository.delete(mongoOps.findById("1", Continent.class));
         
         assertThat(mongoOps.findById("1", Continent.class), equalTo(null));
         

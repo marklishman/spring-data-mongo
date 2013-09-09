@@ -5,8 +5,6 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-
-
 @Document(collection="countries")
 @TypeAlias("ctry")
 public class Country extends AbstractDocument {
@@ -66,6 +64,10 @@ public class Country extends AbstractDocument {
 
     public Continent getContinent() {
         return continent;
+    }
+    
+    public String toString() {
+        return this.getName();
     }
 
 }

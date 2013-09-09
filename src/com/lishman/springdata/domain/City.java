@@ -1,12 +1,11 @@
 package com.lishman.springdata.domain;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-
 
 @Document(collection="cities")
 @TypeAlias("city")
@@ -18,7 +17,7 @@ public class City extends AbstractDocument {
     @DBRef
     private Country country;
 
-    public City(String id, String name, final Country country, List<String> attractions) {
+    public City(BigInteger id, String name, final Country country, List<String> attractions) {
         this.setId(id);
         this.setName(name);
         this.setCountry(country);
