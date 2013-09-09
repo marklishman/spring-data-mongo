@@ -14,8 +14,8 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.lishman.springdata.MongoConfig;
 import com.lishman.springdata.MongoTestData;
+import com.lishman.springdata.config.MongoConfig;
 import com.lishman.springdata.dao.ContinentDao;
 import com.lishman.springdata.domain.Continent;
 
