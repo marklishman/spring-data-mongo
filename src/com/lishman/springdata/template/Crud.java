@@ -50,7 +50,6 @@ public class Crud {
         List<Country> europeanCountries = mongoOps.find(europeanQuery, Country.class);
         System.out.println("Countries in Europe: " + europeanCountries);
         
-        
         //------------------------------------------------- update
         
         Query query = query(where("name").is("Serbia"));

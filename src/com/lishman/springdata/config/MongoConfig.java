@@ -33,11 +33,10 @@ public class MongoConfig extends AbstractMongoConfiguration {
         return client;
     }
 
-    // TODO not sure what effect this has
-//    @Override
-//    protected String getMappingBasePackage() {
-//        return "com.lishman.springdata.domain";
-//    }
+    @Override
+    protected String getMappingBasePackage() {
+        return "com.lishman.springdata.domain";
+    }
 
     // ---------------------------------------------------- Test Data
 
