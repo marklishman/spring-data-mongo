@@ -1,6 +1,6 @@
 package com.lishman.springdata.template;
 
-import static org.springframework.data.mongodb.core.query.Criteria.*;
+import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
 import java.net.UnknownHostException;
@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.data.mongodb.core.query.Criteria;
 
 import com.lishman.springdata.MongoTestData;
@@ -25,6 +26,13 @@ public class Queries {
         MongoTestData testData = new MongoTestData();
         testData.setMongoOperations(mongoOps);
         testData.countriesTestData();
+        
+        //------------------------------------------------- query document
+
+        BasicQuery queryDoc = new BasicQuery("{ continent.name : 'Europe', area : { $gt : 50000 } }");
+        List<Country> largeEuropean= mongoOps.find(queryDoc, Country.class);
+        
+        System.out.println("Large European countries " + largeEuropean);
         
         //------------------------------------------------- equality
         
@@ -47,9 +55,9 @@ public class Queries {
         //------------------------------------------------- between
         
         Criteria between = where("population").gt(5000000).lt(30000000);
-        List<Country> populationBetween = mongoOps.find(query(between), Country.class);
+        List<Country> popBetween = mongoOps.find(query(between), Country.class);
         
-        System.out.println("Medium populated countries " + populationBetween);
+        System.out.println("Medium populated countries " + popBetween);
         
         //------------------------------------------------- in list
         
@@ -78,32 +86,31 @@ public class Queries {
         
         //------------------------------------------------- and
         
-        Criteria smallAreaAndBigPopulation = where("area").lt(500000).and("population").gt(30000000);
-        List<Country> denselyPopulated = mongoOps.find(query(smallAreaAndBigPopulation), Country.class);
+        Criteria smallAreaAndBigPop = where("area").lt(500000).and("population").gt(30000000);
+        List<Country> densePop = mongoOps.find(query(smallAreaAndBigPop), Country.class);
         
-        System.out.println("Densely populated " + denselyPopulated);
+        System.out.println("Densely populated " + densePop);
         
         //------------------------------------------------- or
         
         Criteria smallArea = where("area").lt(50000);
-        Criteria smallPopulation = where("population").lt(2000000);
-        Criteria smallAreaOrPopulation = new Criteria().orOperator(smallArea, smallPopulation);
-        List<Country> smallOrSparselyPopulated = mongoOps.find(query(smallAreaOrPopulation), Country.class);
+        Criteria smallPop = where("population").lt(2000000);
+        Criteria smallAreaOrPop = new Criteria().orOperator(smallArea, smallPop);
+        List<Country> smallAreaOrSmallPop = mongoOps.find(query(smallAreaOrPop), Country.class);
         
-        System.out.println("Small area or population  " + smallOrSparselyPopulated);
+        System.out.println("Small area or population  " + smallAreaOrSmallPop);
         
         //------------------------------------------------- and / or
         
         Criteria countries = where("name").regex("G[ae].*");
-        Criteria andOr = new Criteria().andOperator(countries, smallAreaOrPopulation);
+        Criteria andOr = new Criteria().andOperator(countries, smallAreaOrPop);
         List<Country> countryList = mongoOps.find(query(andOr), Country.class);
         
         System.out.println("Complex query  " + countryList);
 
-        // Show the generated DBObject
         System.out.println(andOr.getCriteriaObject()); 
-        
-        /* 
+        /* outputs this query document..
+         
                { "$and" : [ 
                             { "name" : { "$regex" : "G[ae].*"}} , 
                             { "$or" : [ 

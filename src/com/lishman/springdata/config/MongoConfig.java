@@ -8,13 +8,12 @@ import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import com.lishman.springdata.MongoTestData;
-import com.lishman.springdata.dao.DataAccessObjectPackage;
 import com.lishman.springdata.repository.RepositoryPackage;
 import com.mongodb.MongoClient;
 import com.mongodb.WriteConcern;
 
 @Configuration
-@ComponentScan(basePackageClasses=DataAccessObjectPackage.class)
+@ComponentScan(basePackageClasses=RepositoryPackage.class)
 @EnableMongoRepositories(basePackageClasses=RepositoryPackage.class)
 public class MongoConfig extends AbstractMongoConfiguration {
     

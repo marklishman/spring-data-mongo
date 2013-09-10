@@ -12,6 +12,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @TypeAlias("medal")
 public class OlympicMedals extends AbstractDocument {
     
+    public enum MedalType {BRONZE, SILVER, GOLD}
+    
     @Field("name")
     private String countryName;
 
@@ -34,12 +36,12 @@ public class OlympicMedals extends AbstractDocument {
         this.countryName = countryName;
     }
 
-    public String getName() {
+    public String getCountryName() {
         return countryName;
     }
     
-    public int getMedalCount(int position) {
-        return medals.get(position);
+    public int getMedalCount(MedalType type) {
+        return medals.get(type.ordinal());
     }
     
 }

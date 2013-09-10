@@ -18,10 +18,6 @@ public class Country extends AbstractDocument {
 
     private Long population;
 
-    /* Country is an aggregate root.
-     * 
-     * It maps nicely onto MongoDBs document model.
-     */
     private Continent continent;
     
     // TODO didn't work without this
