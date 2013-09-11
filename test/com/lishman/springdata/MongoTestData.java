@@ -56,7 +56,7 @@ public class MongoTestData {
         mongoOps.insert(new Country("Georgia", 26900, 4382100L, europe));
         Country germany = new Country("Germany", 137847, 82046000L, europe);
         mongoOps.insert(germany);
-        mongoOps.insert(new Country("Ghana", 92098, 23837000L, australia));
+        mongoOps.insert(new Country("Ghana", 92098, 23837000L, africa));
         mongoOps.insert(new Country("Greece", 50949, 11257285L, europe));
         Country japan = new Country("Japan", 145925, 126659683L, asia);
         mongoOps.insert(japan);
