@@ -32,24 +32,20 @@ public class MedalsRepositoryTest {
         testData.countriesTestData();
     }
     
-    //------------------------------------------------- medal totals
+    //------------------------------------------------- manual implementation
 
     @Test
-    public void testSilverCountReturnsCorrectNumber() {
-
-        int silverMedals = medalsRepo.getSilverCount("China");
-
-        assertThat(silverMedals, equalTo(144));
+    public void testMedalCountReturnsCorrectNumber() {
+        assertThat(medalsRepo.getBronzeCount("China"), equalTo(128));
+        assertThat(medalsRepo.getSilverCount("East Germany"), equalTo(129));
+        assertThat(medalsRepo.getGoldCount("Italy"), equalTo(198));
     }
     
-    //------------------------------------------------- find country by name
+    //------------------------------------------------- spring implementation
     
     @Test
     public void testFindByCountryNameReturnsCorrectDocument() {
-        
         OlympicMedals medals = medalsRepo.findByCountryName("China");
-        
         assertThat(medals.getMedalCount(MedalType.GOLD), equalTo(201));
-        
     }
 }
