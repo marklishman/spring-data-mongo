@@ -4,7 +4,6 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
-import static org.springframework.data.mongodb.core.query.Update.update;
 
 import java.util.List;
 
@@ -91,13 +90,13 @@ public class CountryRepositoryTest {
     @Test
     public void testFindByContinentName() {
         List<Country> asianCountries = countryRepo.findByContinentName("Asia");
-        assertThat(asianCountries .toString(), equalTo("[Japan, Vietnam]"));
+        assertThat(asianCountries.toString(), equalTo("[Japan, Vietnam]"));
     }
     
     @Test
     public void testFindByContinentNameQuery() {
         List<Country> africanCountries = countryRepo.findByContinentName("Africa");
-        assertThat(africanCountries .toString(), equalTo("[Gabon, Gambia, Ghana]"));
+        assertThat(africanCountries.toString(), equalTo("[Gabon, Gambia, Ghana]"));
     }
     
     //------------------------------------------------- null / not null
@@ -139,19 +138,19 @@ public class CountryRepositoryTest {
     @Test
     public void testFindByAreaInSquareMilesLessThanQuery() {
         List<Country> smallCountries = countryRepo.findByAreaInSquareMilesLessThanQuery(40000);
-        assertThat(smallCountries .toString(), equalTo("[Gambia, Georgia, Serbia]"));
+        assertThat(smallCountries.toString(), equalTo("[Gambia, Georgia, Serbia]"));
     }
     
     @Test
     public void testFindByPopulationGreaterThan() {
         List<Country> largePopulation = countryRepo.findByPopulationGreaterThan(22000000);
-        assertThat(largePopulation .toString(), equalTo("[Germany, Ghana, Japan, Vietnam]"));
+        assertThat(largePopulation.toString(), equalTo("[Germany, Ghana, Japan, Vietnam]"));
     }
     
     @Test
     public void testFindByPopulationGreaterThanQuery() {
         List<Country> largePopulation = countryRepo.findByPopulationGreaterThanQuery(90000000);
-        assertThat(largePopulation .toString(), equalTo("[Japan, Vietnam]"));
+        assertThat(largePopulation.toString(), equalTo("[Japan, Vietnam]"));
     }
     
     //------------------------------------------------- between
@@ -159,27 +158,59 @@ public class CountryRepositoryTest {
     @Test
     public void testFindByPopulationBetween() {
         List<Country> largePopulation = countryRepo.findByPopulationBetween(20000000, 50000000);
-        assertThat(largePopulation .toString(), equalTo("[Australia, Ghana]"));
+        assertThat(largePopulation.toString(), equalTo("[Australia, Ghana]"));
     }
     
     @Test
     public void testFindByPopulationBetweenQuery() {
         List<Country> largePopulation = countryRepo.findByPopulationBetweenQuery(10000000, 30000000);
-        assertThat(largePopulation .toString(), equalTo("[Australia, Ghana, Greece]"));
+        assertThat(largePopulation.toString(), equalTo("[Australia, Ghana, Greece]"));
     }
 
     //------------------------------------------------- and
+
+    @Test
+    public void testFindByContinentNameAndPopulationLessThan() {
+        List<Country> smallPopEuropean = countryRepo.findByContinentNameAndPopulationLessThan("Europe", 10000000);
+        assertThat(smallPopEuropean.toString(), equalTo("[Georgia, Serbia]"));
+    }
+    
+    @Test
+    public void testFindByContinentNameAndPopulationLessThanQuery() {
+        List<Country> smallPopAfrican = countryRepo.findByContinentNameAndPopulationLessThanQuery("Africa", 10000000);
+        assertThat(smallPopAfrican.toString(), equalTo("[Gabon, Gambia]"));
+    }
     
     //------------------------------------------------- or
 
+    @Test
+    public void testFindByPopulationLessThanOrAreaInSquareMilesLessThan() {
+        List<Country> smallPopOrArea = countryRepo.findByPopulationLessThanOrAreaInSquareMilesLessThan(4000000, 80000);
+        assertThat(smallPopOrArea.toString(), equalTo("[Gabon, Gambia, Georgia, Greece, Serbia]"));
+    }
+    
+    @Test
+    public void testFindByPopulationLessThanOrAreaInSquareMilesLessThanQuery() {
+        List<Country> smallPopOrArea = countryRepo.findByPopulationLessThanOrAreaInSquareMilesLessThanQuery(1000000, 70000);
+        assertThat(smallPopOrArea.toString(), equalTo("[Gambia, Georgia, Greece, Serbia]"));
+    }
+    
     //------------------------------------------------- orderBy
     
     @Test
     public void testFindByContinentNameOrderByPopulation() {
         List<Country> europeanCountries = countryRepo.findByContinentNameOrderByPopulationDesc("Europe");
-        assertThat(europeanCountries .toString(), equalTo("[Germany, Greece, Serbia, Georgia]"));
+        assertThat(europeanCountries.toString(), equalTo("[Germany, Greece, Serbia, Georgia]"));
     }
      
     //------------------------------------------------- fields
-
+    
+    @Test
+    public void testFindByContinentNameWithFields() {
+        List<Country> asianCountries = countryRepo.findByContinentNameJustNameQuery("Asia");
+        assertThat(asianCountries.toString(), equalTo("[Japan, Vietnam]"));
+        assertThat(asianCountries.get(0).getId(), equalTo(null));
+        assertThat(asianCountries.get(0).getPopulation(), equalTo(null));
+        assertThat(asianCountries.get(0).getAreaInSquareMiles(), equalTo(null));
+    }
 }

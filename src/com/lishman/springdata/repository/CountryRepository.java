@@ -73,13 +73,24 @@ public interface CountryRepository extends Repository<Country, BigInteger> {
     
     //------------------------------------------- and
 
+    public List<Country> findByContinentNameAndPopulationLessThan(String continentName, int pop);
+
+    @Query("{'continent.name' : ?0, population : {$lt : ?1}}")
+    public List<Country> findByContinentNameAndPopulationLessThanQuery(String continentName, int pop);
     
     //------------------------------------------- or
     
+    public List<Country> findByPopulationLessThanOrAreaInSquareMilesLessThan(int pop, int area);
     
+    @Query("{'$or' : [{'population' : {$lt : ?0}}, {'area' : {$lt : ?1}}]}")
+    public List<Country> findByPopulationLessThanOrAreaInSquareMilesLessThanQuery(int pop, int area);
+
     //------------------------------------------- order by
     
     public List<Country> findByContinentNameOrderByPopulationDesc(String continentName);
 
     //------------------------------------------- fields
+    
+    @Query(value="{'continent.name' : ?0}", fields="{_id : 0, name : 1}")
+    public List<Country> findByContinentNameJustNameQuery(String continentName);
 }
