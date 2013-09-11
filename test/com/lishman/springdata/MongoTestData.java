@@ -62,6 +62,8 @@ public class MongoTestData {
         mongoOps.insert(japan);
         mongoOps.insert(new Country("New Zealand", 104454, 4320300L, australia));
         mongoOps.insert(new Country("Serbia", 34116, 7120666L, europe));
+        Country usa = new Country("USA", 3794101, 316637000L, northAmerica);
+        mongoOps.insert(usa);
         mongoOps.insert(new Country("Vietnam", 128565, 90388000L, asia));
         
         // ------------------------------------------------ Cities
@@ -69,6 +71,8 @@ public class MongoTestData {
         mongoOps.insert(new City(new BigInteger("1"), "Tokyo", japan, Arrays.asList(new String[]{"Mount Fuji", "Tokyo Skytree", "Disneyland"})));
         mongoOps.insert(new City(new BigInteger("2"), "Munich", germany, Arrays.asList(new String[]{"English Garden", "BMW Museum"})));
         mongoOps.insert(new City(new BigInteger("3"), "Berlin", germany, Arrays.asList(new String[]{"Brandenburg Gate", "Berlin TV Tower", "Reichstag building"})));
+        mongoOps.insert(new City(new BigInteger("4"), "New York", usa, Arrays.asList(new String[]{"Empire State Building", "Statue of Liberty", "Central Park", "Times Square", "Bronx Zoo"})));
+        mongoOps.insert(new City(new BigInteger("5"), "Boston", usa, Arrays.asList(new String[]{"Freedom Trail", "Fenway Park", "Beacon Hill"})));
 
         // ------------------------------------------------ Olympic Medals
         

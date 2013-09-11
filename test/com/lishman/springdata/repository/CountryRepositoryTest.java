@@ -56,13 +56,13 @@ public class CountryRepositoryTest {
     @Test
     public void testFindByNameNotEqual() {
         List<Country> notJapan = countryRepo.findByNameNot("Japan");
-        assertThat(notJapan.toString(), equalTo("[Australia, Gabon, Gambia, Georgia, Germany, Ghana, Greece, New Zealand, Serbia, Vietnam]"));
+        assertThat(notJapan.toString(), equalTo("[Australia, Gabon, Gambia, Georgia, Germany, Ghana, Greece, New Zealand, Serbia, USA, Vietnam]"));
     }
     
     @Test
     public void testFindByNameNotEqualQuery() {
         List<Country> notJapan = countryRepo.findByNameNotQuery("Japan");
-        assertThat(notJapan.toString(), equalTo("[Australia, Gabon, Gambia, Georgia, Germany, Ghana, Greece, New Zealand, Serbia, Vietnam]"));
+        assertThat(notJapan.toString(), equalTo("[Australia, Gabon, Gambia, Georgia, Germany, Ghana, Greece, New Zealand, Serbia, USA, Vietnam]"));
     }
 
     //------------------------------------------------- like / regex
@@ -111,7 +111,7 @@ public class CountryRepositoryTest {
         assertThat(nullPopulation.toString(), equalTo("[Gabon]"));
 
         List<Country> notNullPopulation = countryRepo.findByPopulationIsNotNull();
-        assertThat(notNullPopulation.toString(), equalTo("[Australia, Gambia, Georgia, Germany, Ghana, Greece, Japan, New Zealand, Serbia, Vietnam]"));
+        assertThat(notNullPopulation.toString(), equalTo("[Australia, Gambia, Georgia, Germany, Ghana, Greece, Japan, New Zealand, Serbia, USA, Vietnam]"));
     }
     
     @Test
@@ -124,7 +124,7 @@ public class CountryRepositoryTest {
         assertThat(nullPopulation.toString(), equalTo("[Gabon, Gambia, Ghana]"));
         
         List<Country> notNullPopulation = countryRepo.findByPopulationIsNotNullQuery();
-        assertThat(notNullPopulation.toString(), equalTo("[Australia, Georgia, Germany, Greece, Japan, New Zealand, Serbia, Vietnam]"));
+        assertThat(notNullPopulation.toString(), equalTo("[Australia, Georgia, Germany, Greece, Japan, New Zealand, Serbia, USA, Vietnam]"));
     }
     
     //------------------------------------------------- less than / greater than
@@ -144,13 +144,13 @@ public class CountryRepositoryTest {
     @Test
     public void testFindByPopulationGreaterThan() {
         List<Country> largePopulation = countryRepo.findByPopulationGreaterThan(22000000);
-        assertThat(largePopulation.toString(), equalTo("[Germany, Ghana, Japan, Vietnam]"));
+        assertThat(largePopulation.toString(), equalTo("[Germany, Ghana, Japan, USA, Vietnam]"));
     }
     
     @Test
     public void testFindByPopulationGreaterThanQuery() {
         List<Country> largePopulation = countryRepo.findByPopulationGreaterThanQuery(90000000);
-        assertThat(largePopulation.toString(), equalTo("[Japan, Vietnam]"));
+        assertThat(largePopulation.toString(), equalTo("[Japan, USA, Vietnam]"));
     }
     
     //------------------------------------------------- between
