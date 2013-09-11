@@ -19,13 +19,10 @@ public class Country extends AbstractDocument {
     private Long population;
 
     private Continent continent;
-    
-    // TODO didn't work without this
-    public Country() {}
 
-    public Country(String name, Integer area, Long population, Continent continent) {
+    public Country(String name, Integer areaInSquareMiles, Long population, Continent continent) {
         setName(name);
-        setAreaInSquareMiles(area);
+        setAreaInSquareMiles(areaInSquareMiles);
         setPopulation(population);
         setContinent(continent);
     }
