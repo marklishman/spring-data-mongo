@@ -9,7 +9,6 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @TypeAlias("ctry")
 public class Country extends AbstractDocument {
 
-    // TODO @Indexed doesn't work
     @Indexed(name="countryName", unique=true)
     private String name;
 

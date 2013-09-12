@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
 import com.lishman.springdata.domain.City;
@@ -49,7 +50,13 @@ public class MongoTestData {
 
         // ------------------------------------------------ Countries
 
-        mongoOps.dropCollection(Country.class);
+        /* remove() instead of dropCollection() to preserve index
+         * 
+         * If dropCollection() were used, the index would be
+         * created on startup and this would delete the collection
+         * AND the index.
+         */
+        mongoOps.remove(new Query(), "countries");
 
         mongoOps.insert(new Country("Australia", 2966200, 21884000L, australia));
         mongoOps.insert(new Country("Gabon", 103347, 1475000L, africa));

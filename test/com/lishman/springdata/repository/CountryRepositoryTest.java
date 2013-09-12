@@ -102,7 +102,7 @@ public class CountryRepositoryTest {
     //------------------------------------------------- null / not null
     
     @Test
-    public void testFindBnullyPopulationIsNull() {
+    public void testFindByPopulationIsNull() {
         Query query = query(where("name").is("Gabon"));
         Update update = new Update().unset("population");
         mongoOps.updateFirst(query, update, Country.class);

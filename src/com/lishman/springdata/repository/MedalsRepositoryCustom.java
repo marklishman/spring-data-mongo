@@ -1,6 +1,5 @@
 package com.lishman.springdata.repository;
 
-// TODO custom interface (good one for tutorial with guide?)
 
 /* This is my custom interface. 
  * 
