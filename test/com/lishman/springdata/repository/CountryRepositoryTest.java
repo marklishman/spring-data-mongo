@@ -15,16 +15,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.lishman.springdata.MongoTestData;
 import com.lishman.springdata.config.MongoConfig;
 import com.lishman.springdata.domain.Country;
+import com.lishman.springdata.testdata.MongoTestData;
 
 @Configuration
 @ContextConfiguration(classes={MongoConfig.class})
 @RunWith(SpringJUnit4ClassRunner.class)
+@ActiveProfiles("test")
 public class CountryRepositoryTest {
 
     @Autowired private CountryRepository countryRepo;

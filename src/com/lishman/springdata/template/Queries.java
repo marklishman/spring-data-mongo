@@ -11,9 +11,9 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.data.mongodb.core.query.Criteria;
 
-import com.lishman.springdata.MongoTestData;
 import com.lishman.springdata.domain.Continent;
 import com.lishman.springdata.domain.Country;
+import com.lishman.springdata.testdata.MongoTestData;
 import com.mongodb.MongoClient;
 
 public class Queries {

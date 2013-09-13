@@ -16,16 +16,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.lishman.springdata.MongoTestData;
 import com.lishman.springdata.config.MongoConfig;
 import com.lishman.springdata.domain.State;
+import com.lishman.springdata.testdata.MongoTestData;
 
 @Configuration
 @ContextConfiguration(classes={MongoConfig.class})
 @RunWith(SpringJUnit4ClassRunner.class)
+@ActiveProfiles("test")
 public class StateRepositoryTest {
 
     @Autowired private StateRepository stateRepo;

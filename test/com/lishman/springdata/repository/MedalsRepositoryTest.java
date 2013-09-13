@@ -9,17 +9,19 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.lishman.springdata.MongoTestData;
 import com.lishman.springdata.config.MongoConfig;
 import com.lishman.springdata.domain.OlympicMedals;
 import com.lishman.springdata.domain.OlympicMedals.MedalType;
+import com.lishman.springdata.testdata.MongoTestData;
 
 @Configuration
 @ContextConfiguration(classes={MongoConfig.class})
 @RunWith(SpringJUnit4ClassRunner.class)
+@ActiveProfiles("test")
 public class MedalsRepositoryTest {
 
     @Autowired private MedalsRepository medalsRepo;

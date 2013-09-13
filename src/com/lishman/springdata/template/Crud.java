@@ -13,9 +13,9 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
-import com.lishman.springdata.MongoTestData;
 import com.lishman.springdata.domain.Continent;
 import com.lishman.springdata.domain.Country;
+import com.lishman.springdata.testdata.MongoTestData;
 import com.mongodb.MongoClient;
 
 public class Crud {

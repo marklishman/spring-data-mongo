@@ -1,4 +1,4 @@
-package com.lishman.springdata;
+package com.lishman.springdata.testdata;
 
 import java.math.BigInteger;
 import java.util.ArrayList;

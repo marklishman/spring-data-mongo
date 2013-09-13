@@ -3,16 +3,16 @@ package com.lishman.springdata.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
-import com.lishman.springdata.MongoTestData;
 import com.lishman.springdata.repository.RepositoryPackage;
+import com.lishman.springdata.testdata.TestDataPackage;
 import com.mongodb.MongoClient;
 import com.mongodb.WriteConcern;
 
 @Configuration
-@ComponentScan(basePackageClasses=RepositoryPackage.class)
 @EnableMongoRepositories(basePackageClasses=RepositoryPackage.class)
 public class MongoConfig extends AbstractMongoConfiguration {
     
@@ -35,12 +35,10 @@ public class MongoConfig extends AbstractMongoConfiguration {
     protected String getMappingBasePackage() {
         return "com.lishman.springdata.domain";
     }
-
-    // ---------------------------------------------------- Test Data
-
-    @Bean
-    public MongoTestData getTestMongoDbData() {
-        return new MongoTestData();
-    }
+    
+    @Configuration
+    @ComponentScan(basePackageClasses={TestDataPackage.class})
+    @Profile("test")
+    static class TestData {}
     
 }

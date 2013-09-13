@@ -11,16 +11,17 @@ import com.lishman.springdata.domain.OlympicMedals.MedalType;
 
 /* The custom interface is implemented here.
  * 
- * The name follows a convention of <InterfaceName>Impl
+ * Spring will find this class because the name follows a convention of 
  * 
- * Spring searches for this name during a component scan.
+ *      <InterfaceName>Impl
+ * 
  * An alternative would be to specify 
  * 
  *      @Repository("medalsRepositoryImpl")
  *      
  * then the class could be called anything.
  *  
- * Either way it will only be picked up by a component scan.
+ * In this case it must be picked up by a component scan.
  * 
  *      @ComponentScan(basePackageClasses=RepositoryPackage.class)
  */
