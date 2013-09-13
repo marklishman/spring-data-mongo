@@ -16,7 +16,7 @@ import com.mongodb.WriteConcern;
 @EnableMongoRepositories(basePackageClasses=RepositoryPackage.class)
 public class MongoConfig extends AbstractMongoConfiguration {
     
-    // ---------------------------------------------------- MongoDb
+    // ---------------------------------------------------- mongodb config
 
     @Override
     protected String getDatabaseName() {
@@ -36,6 +36,8 @@ public class MongoConfig extends AbstractMongoConfiguration {
         return "com.lishman.springdata.domain";
     }
     
+    // ---------------------------------------------------- test data
+
     @Configuration
     @ComponentScan(basePackageClasses={TestDataPackage.class})
     @Profile("test")
