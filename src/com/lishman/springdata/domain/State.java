@@ -17,7 +17,6 @@ public class State extends AbstractDocument  {
     
     private int capitalSince;
     
-
     public State(String name, 
                  String abbreviation, 
                  int dateOfStatehood,
