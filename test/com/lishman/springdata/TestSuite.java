@@ -4,6 +4,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import com.lishman.springdata.repository.CityRepositoryTest;
+import com.lishman.springdata.repository.ContinentRepositoryTest;
 import com.lishman.springdata.repository.CountryRepositoryTest;
 import com.lishman.springdata.repository.MedalsRepositoryTest;
 import com.lishman.springdata.repository.StateRepositoryTest;
@@ -13,6 +14,7 @@ import com.lishman.springdata.repository.StateRepositoryTest;
 @Suite.SuiteClasses( {
     
     CityRepositoryTest.class,
+    ContinentRepositoryTest.class,
     CountryRepositoryTest.class,
     MedalsRepositoryTest.class,
     StateRepositoryTest.class,
