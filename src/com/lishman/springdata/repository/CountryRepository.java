@@ -92,5 +92,5 @@ public interface CountryRepository extends Repository<Country, BigInteger> {
     //------------------------------------------- fields
     
     @Query(value="{'continent.name' : ?0}", fields="{_id : 0, name : 1}")
-    public List<Country> findByContinentNameJustNameQuery(String continentName);
+    public List<Country> findByContinentNameJustReturnNameQuery(String continentName);
 }
