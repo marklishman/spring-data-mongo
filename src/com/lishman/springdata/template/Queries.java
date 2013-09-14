@@ -20,6 +20,8 @@ public class Queries {
     
     public static void main(String[] args) throws UnknownHostException {
         
+        //------------------------------------------------- set up
+
         MongoClient client = new MongoClient("mongo-host");
         MongoOperations mongoOps = new MongoTemplate(client, "world");
         
@@ -30,7 +32,7 @@ public class Queries {
         //------------------------------------------------- query document
 
         BasicQuery queryDoc = new BasicQuery("{ continent.name : 'Europe', area : { $gt : 50000 } }");
-        List<Country> largeEuropean= mongoOps.find(queryDoc, Country.class);
+        List<Country> largeEuropean = mongoOps.find(queryDoc, Country.class);
         
         System.out.println("Large European countries " + largeEuropean);
         
