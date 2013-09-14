@@ -209,7 +209,7 @@ public class CountryRepositoryTest {
     
     @Test
     public void testFindByContinentNameWithFields() {
-        List<Country> asianCountries = countryRepo.findByContinentNameJustNameQuery("Asia");
+        List<Country> asianCountries = countryRepo.findByContinentNameJustReturnNameQuery("Asia");
         assertThat(asianCountries.toString(), equalTo("[Japan, Vietnam]"));
         assertThat(asianCountries.get(0).getId(), equalTo(null));
         assertThat(asianCountries.get(0).getPopulation(), equalTo(null));
