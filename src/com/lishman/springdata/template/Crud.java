@@ -21,6 +21,8 @@ import com.mongodb.MongoClient;
 public class Crud {
     
     public static void main(String[] args) throws UnknownHostException {
+
+        //------------------------------------------------- set up
         
         MongoClient client = new MongoClient("mongo-host");
         MongoOperations mongoOps = new MongoTemplate(client, "world");
@@ -33,7 +35,6 @@ public class Crud {
         
         Country iceland = new Country("Iceland", 39770, 321857L, new Continent(3, "Europe"));
         mongoOps.insert(iceland);
-        
         
         //------------------------------------------------- read
         
@@ -55,14 +56,10 @@ public class Crud {
         Query query = query(where("name").is("Serbia"));
         Update update = update("population", 7120777L);
         mongoOps.updateFirst(query, update, Country.class);
-
         
         //------------------------------------------------- delete
         
         mongoOps.remove(query(where("_id").is("3")), Continent.class);
         System.out.println(mongoOps.findAll(Continent.class));
-
     }
-
-
 }
