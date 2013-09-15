@@ -24,8 +24,8 @@ import com.lishman.springdata.domain.State;
 import com.lishman.springdata.testdata.MongoTestData;
 
 @ContextConfiguration(classes={MongoConfig.class})
-@RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("test")
+@RunWith(SpringJUnit4ClassRunner.class)
 public class StateRepositoryTest {
 
     @Autowired private StateRepository stateRepo;

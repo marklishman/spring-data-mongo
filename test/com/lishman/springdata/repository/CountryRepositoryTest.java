@@ -23,8 +23,8 @@ import com.lishman.springdata.domain.Country;
 import com.lishman.springdata.testdata.MongoTestData;
 
 @ContextConfiguration(classes={MongoConfig.class})
-@RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("test")
+@RunWith(SpringJUnit4ClassRunner.class)
 public class CountryRepositoryTest {
 
     @Autowired private CountryRepository countryRepo;
