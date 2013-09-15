@@ -1,18 +1,13 @@
 package com.lishman.springdata.repository;
 
-
 import java.io.Serializable;
 
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.Repository;
 
-/* Custom base repository.
- * 
- * Only allows operations that affect a single document.
- */
-
 @NoRepositoryBean
-public interface SingleItemOnlyRepository<T, ID extends Serializable> extends Repository<T, ID>{
+public interface SingleItemOnlyRepository<T, ID extends Serializable> 
+            extends Repository<T, ID>{
     
     void delete(ID id);
     
@@ -23,6 +18,5 @@ public interface SingleItemOnlyRepository<T, ID extends Serializable> extends Re
     T findOne(ID id);
 
     <S extends T> S save(S entity);
-    
 
 }

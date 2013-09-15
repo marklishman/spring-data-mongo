@@ -9,7 +9,6 @@ import com.lishman.springdata.repository.CountryRepositoryTest;
 import com.lishman.springdata.repository.MedalsRepositoryTest;
 import com.lishman.springdata.repository.StateRepositoryTest;
 
-
 @RunWith(Suite.class)
 @Suite.SuiteClasses( {
     

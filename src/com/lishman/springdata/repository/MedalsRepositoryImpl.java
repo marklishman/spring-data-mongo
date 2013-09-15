@@ -9,8 +9,7 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import com.lishman.springdata.domain.OlympicMedals;
 import com.lishman.springdata.domain.OlympicMedals.MedalType;
 
-/* The custom interface is implemented here.
- * 
+/* 
  * Spring will find this class because the name follows a convention of 
  * 
  *      <InterfaceName>Impl
@@ -21,7 +20,7 @@ import com.lishman.springdata.domain.OlympicMedals.MedalType;
  *      
  * then the class could be called anything.
  *  
- * In this case it must be picked up by a component scan.
+ * However, in this case it would need to be picked up by a component scan.
  * 
  *      @ComponentScan(basePackageClasses=RepositoryPackage.class)
  */
@@ -47,6 +46,4 @@ public class MedalsRepositoryImpl implements MedalsRepositoryCustom {
     private OlympicMedals getMedalsForCountry(String countryName) {
         return operations.findOne(query(where("countryName").is(countryName)), OlympicMedals.class);
     }
-
-
 }

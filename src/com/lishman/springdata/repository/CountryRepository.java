@@ -8,6 +8,9 @@ import org.springframework.data.repository.Repository;
 
 import com.lishman.springdata.domain.Country;
 
+// Use this instead if you don't want to extend Spring Data interfaces
+// @RepositoryDefinition(domainClass=Country.class, idClass=BigInteger.class)
+
 public interface CountryRepository extends Repository<Country, BigInteger> {
 
     //------------------------------------------- equality
