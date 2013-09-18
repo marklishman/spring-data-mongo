@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import com.lishman.springdata.domain.City;
 import com.lishman.springdata.domain.Continent;
 import com.lishman.springdata.domain.Country;
+import com.lishman.springdata.domain.Ocean;
 import com.lishman.springdata.domain.OlympicMedals;
 import com.lishman.springdata.domain.State;
 
@@ -26,7 +27,6 @@ public class MongoTestData {
     }
     
     public void countriesTestData() {
-        
 
         // ------------------------------------------------ Continents
         
@@ -47,6 +47,15 @@ public class MongoTestData {
         mongoOps.insert(southAmerica);
         mongoOps.insert(australia);
         mongoOps.insert(antarctica);
+        // ------------------------------------------------ Continents
+        
+        mongoOps.dropCollection(Ocean.class);
+        
+        mongoOps.insert(new Ocean(1, "Artic", 5426000));
+        mongoOps.insert(new Ocean(2, "Atlantic", 29630000));
+        mongoOps.insert(new Ocean(3, "Indian", 26463000));
+        mongoOps.insert(new Ocean(4, "Pacific", 60045000));
+        mongoOps.insert(new Ocean(5, "Southern", 7846000));
 
         // ------------------------------------------------ Countries
 

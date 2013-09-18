@@ -74,7 +74,7 @@ public class CountryRepositoryTest {
     }
     
     @Test
-    public void testReadByNameRgex() {
+    public void testReadByNameRegex() {
         List<Country> startsWithGaOrGe = countryRepo.readByNameRegex("^G[ae].*");
         assertThat(startsWithGaOrGe.toString(), equalTo("[Gabon, Gambia, Georgia, Germany]"));
     }
