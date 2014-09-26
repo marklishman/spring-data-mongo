@@ -48,10 +48,10 @@ public class StateRepositoryTest {
         Pageable pageable = new PageRequest(page, pageSize);
         Page<State> states = stateRepo.findAll(pageable);
         
-        assertThat(states.isFirstPage(), equalTo(false));
-        assertThat(states.isLastPage(), equalTo(false));
-        assertThat(states.hasNextPage(), equalTo(true));
-        assertThat(states.hasPreviousPage(), equalTo(true));
+        assertThat(states.isFirst(), equalTo(false));
+        assertThat(states.isLast(), equalTo(false));
+        assertThat(states.hasNext(), equalTo(true));
+        assertThat(states.hasPrevious(), equalTo(true));
         assertThat(states.hasContent(), equalTo(true));
 
         assertThat(states.getTotalElements(), equalTo(50L));

@@ -4,7 +4,7 @@ import java.math.BigInteger;
 
 import com.lishman.springdata.domain.Continent;
 
-public interface ContinentRepository 
+public interface SingleItemContinentRepository 
             extends SingleItemOnlyRepository<Continent, BigInteger> {
     
 }

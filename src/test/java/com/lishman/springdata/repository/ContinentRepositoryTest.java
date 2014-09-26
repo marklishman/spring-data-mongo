@@ -25,7 +25,7 @@ import com.lishman.springdata.testdata.MongoTestData;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ContinentRepositoryTest {
 
-    @Autowired private ContinentRepository continentRepo;
+    @Autowired private SingleItemContinentRepository continentRepo;
     
     @Autowired private MongoTestData testData;
     @Autowired private MongoOperations mongoOps;
@@ -74,15 +74,15 @@ public class ContinentRepositoryTest {
     
     //------------------------------------------------- save
     
-    @Test
-    public void testInsert() {
-        Continent another = new Continent(BigInteger.valueOf(10), "Another");
-        
-        Continent continentInserted = continentRepo.save(another);
-        
-        assertThat(continentInserted.getName(), equalTo("Another"));
-        assertThat(mongoOps.findById(BigInteger.valueOf(10), Continent.class).getName(), equalTo("Another"));
-    }
+//    @Test
+//    public void testInsert() {
+//        Continent another = new Continent(BigInteger.valueOf(10), "Another");
+//        
+//        Continent continentInserted = continentRepo.save(another);
+//        
+//        assertThat(continentInserted.getName(), equalTo("Another"));
+//        assertThat(mongoOps.findById(BigInteger.valueOf(10), Continent.class).getName(), equalTo("Another"));
+//    }
 
 
 }
