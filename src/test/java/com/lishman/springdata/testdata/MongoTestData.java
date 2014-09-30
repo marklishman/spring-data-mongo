@@ -26,6 +26,8 @@ public class MongoTestData {
         this.mongoOps = mongoOps;
     }
     
+    // TODO remove this
+    
     public void countriesTestData() {
 
         // ------------------------------------------------ Continents

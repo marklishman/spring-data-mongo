@@ -15,26 +15,32 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.lishman.springdata.TestData;
 import com.lishman.springdata.config.MongoConfig;
 import com.lishman.springdata.domain.City;
 import com.lishman.springdata.domain.Country;
 import com.lishman.springdata.testdata.MongoTestData;
-import com.lishman.springdata.testdata.TestData;
 
-@ContextConfiguration(classes={MongoConfig.class})
+@ContextConfiguration(classes={MongoConfig.class, MongoTestData.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class CityRepositoryTest {
 
     @Autowired private CityRepository cityRepo;
     @Autowired private MongoOperations mongoOps;
+
+    
+    @Autowired private MongoTestData testData;
+    
     
     @Before
     public void reset() {
+        // TODO fix the CityRepositoryTest
+        TestData.countries();
         TestData.cities();
+//        testData.countriesTestData();
     }
     
     //------------------------------------------------- findByName
@@ -66,6 +72,7 @@ public class CityRepositoryTest {
     public void testFindOne() {
         City boston = cityRepo.findOne(BigInteger.valueOf(5));
         assertThat(boston.getName(), equalTo("Boston"));
+System.out.println(boston.getCountry());        
     }
     
     //------------------------------------------------- find all

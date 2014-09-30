@@ -10,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.lishman.springdata.TestData;
 import com.lishman.springdata.config.MongoConfig;
 import com.lishman.springdata.domain.OlympicMedals;
 import com.lishman.springdata.domain.OlympicMedals.MedalType;
-import com.lishman.springdata.testdata.TestData;
 
 @ContextConfiguration(classes={MongoConfig.class})
 @RunWith(SpringJUnit4ClassRunner.class)

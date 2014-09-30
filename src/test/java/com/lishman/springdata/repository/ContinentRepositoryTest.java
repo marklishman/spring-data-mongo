@@ -14,9 +14,9 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.lishman.springdata.TestData;
 import com.lishman.springdata.config.MongoConfig;
 import com.lishman.springdata.domain.Continent;
-import com.lishman.springdata.testdata.TestData;
 
 @ContextConfiguration(classes={MongoConfig.class})
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -40,10 +40,10 @@ public class ContinentRepositoryTest {
         assertThat(mongoOps.findById(3L, Continent.class), is(equalTo(null)));
     }
     
-    //------------------------------------------------- delete by entity
+    //------------------------------------------------- delete by object
     
     @Test
-    public void testDeleteUsingEntity() {
+    public void testDeleteUsingObject() {
         Continent asia = mongoOps.findOne(query(where("name").is("Asia")), Continent.class);
         
         continentRepo.delete(asia);

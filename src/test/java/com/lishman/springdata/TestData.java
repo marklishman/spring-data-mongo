@@ -1,4 +1,4 @@
-package com.lishman.springdata.testdata;
+package com.lishman.springdata;
 
 import java.net.UnknownHostException;
 
@@ -93,12 +93,12 @@ public class TestData {
         DBCollection cities = db.getCollection("cities");
         cities.drop();
     
-        // TODO references
-        cities.insert((DBObject) JSON.parse("{ '_id' : '1', '_class' : 'city', 'name' : 'Tokyo', 'attractions' : [ 'Mount Fuji', 'Tokyo Skytree', 'Disneyland' ], 'country' : 'countries', '8' }"));
-        cities.insert((DBObject) JSON.parse("{ '_id' : '2', '_class' : 'city', 'name' : 'Munich', 'attractions' : [ 'English Garden', 'BMW Museum' ], 'country' : 'countries', '5' }"));
-        cities.insert((DBObject) JSON.parse("{ '_id' : '3', '_class' : 'city', 'name' : 'Berlin', 'attractions' : [ 'Brandenburg Gate', 'Berlin TV Tower', 'Reichstag building' ], 'country' : 'countries', '5' }"));
-        cities.insert((DBObject) JSON.parse("{ '_id' : '4', '_class' : 'city', 'name' : 'New York', 'attractions' : [ 'Empire State Building', 'Statue of Liberty', 'Central Park', 'Times Square', 'Bronx Zoo' ], 'country' : 'countries', '11' }"));
-        cities.insert((DBObject) JSON.parse("{ '_id' : '5', '_class' : 'city', 'name' : 'Boston', 'attractions' : [ 'Freedom Trail', 'Fenway Park', 'Beacon Hill' ],'country' : 'countries', '1' }"));
+        // TODO fix City references (DBRef)
+        cities.insert((DBObject) JSON.parse("{ '_id' : '1', '_class' : 'city', 'name' : 'Tokyo', 'attractions' : [ 'Mount Fuji', 'Tokyo Skytree', 'Disneyland' ], 'country' : DBRef('countries', NumberLong(8)) }"));
+//        cities.insert((DBObject) JSON.parse("{ '_id' : '2', '_class' : 'city', 'name' : 'Munich', 'attractions' : [ 'English Garden', 'BMW Museum' ], 'country' : 'countries', '5' }"));
+//        cities.insert((DBObject) JSON.parse("{ '_id' : '3', '_class' : 'city', 'name' : 'Berlin', 'attractions' : [ 'Brandenburg Gate', 'Berlin TV Tower', 'Reichstag building' ], 'country' : 'countries', '5' }"));
+//        cities.insert((DBObject) JSON.parse("{ '_id' : '4', '_class' : 'city', 'name' : 'New York', 'attractions' : [ 'Empire State Building', 'Statue of Liberty', 'Central Park', 'Times Square', 'Bronx Zoo' ], 'country' : 'countries', '11' }"));
+//        cities.insert((DBObject) JSON.parse("{ '_id' : '5', '_class' : 'city', 'name' : 'Boston', 'attractions' : [ 'Freedom Trail', 'Fenway Park', 'Beacon Hill' ],'country' : 'countries', '1' }"));
     }
     
     public static void medals() {

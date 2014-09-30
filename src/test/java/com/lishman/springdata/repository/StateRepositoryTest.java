@@ -14,20 +14,18 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.lishman.springdata.TestData;
 import com.lishman.springdata.config.MongoConfig;
 import com.lishman.springdata.domain.State;
-import com.lishman.springdata.testdata.TestData;
 
 @ContextConfiguration(classes={MongoConfig.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class StateRepositoryTest {
 
     @Autowired private StateRepository stateRepo;
-    @Autowired private MongoOperations mongoOps;
     
     @Before
     public void reset() {
