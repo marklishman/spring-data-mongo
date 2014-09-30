@@ -7,29 +7,23 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.lishman.springdata.config.MongoConfig;
 import com.lishman.springdata.domain.OlympicMedals;
 import com.lishman.springdata.domain.OlympicMedals.MedalType;
-import com.lishman.springdata.testdata.MongoTestData;
+import com.lishman.springdata.testdata.TestData;
 
 @ContextConfiguration(classes={MongoConfig.class})
-@ActiveProfiles("test")
 @RunWith(SpringJUnit4ClassRunner.class)
 public class MedalsRepositoryTest {
 
     @Autowired private MedalsRepository medalsRepo;
     
-    @Autowired private MongoTestData testData;
-    @Autowired private MongoOperations mongoOps;
-    
     @Before
     public void reset() {
-        testData.countriesTestData();
+        TestData.medals();
     }
     
     //------------------------------------------------- manual implementation

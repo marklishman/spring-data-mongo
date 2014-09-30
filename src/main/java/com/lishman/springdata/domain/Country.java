@@ -101,13 +101,17 @@ public class Country {
     }
     
     public String toString() {
-        return Objects.toStringHelper(this)
-                .add("id", id)
-                .add("name", this.getName())
-                .add("area", this.getAreaInSquareMiles())
-                .add("population", this.getPopulation())
-                .add("continent", this.getContinent().toString())
-                .toString();
+        return this.getName();
     }
+    
+//    public String toString() {
+//        return Objects.toStringHelper(this)
+//                .add("id", id)
+//                .add("name", this.getName())
+//                .add("area", this.getAreaInSquareMiles())
+//                .add("population", this.getPopulation())
+//                .add("continent", this.getContinent().toString())
+//                .toString();
+//    }
 
 }

@@ -23,20 +23,18 @@ import com.lishman.springdata.config.MongoConfig;
 import com.lishman.springdata.domain.City;
 import com.lishman.springdata.domain.Country;
 import com.lishman.springdata.testdata.MongoTestData;
+import com.lishman.springdata.testdata.TestData;
 
 @ContextConfiguration(classes={MongoConfig.class})
-@ActiveProfiles("test")
 @RunWith(SpringJUnit4ClassRunner.class)
 public class CityRepositoryTest {
 
     @Autowired private CityRepository cityRepo;
-    
-    @Autowired private MongoTestData testData;
     @Autowired private MongoOperations mongoOps;
     
     @Before
     public void reset() {
-        testData.countriesTestData();
+        TestData.cities();
     }
     
     //------------------------------------------------- findByName

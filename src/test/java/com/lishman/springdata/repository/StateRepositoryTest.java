@@ -15,27 +15,23 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.lishman.springdata.config.MongoConfig;
 import com.lishman.springdata.domain.State;
-import com.lishman.springdata.testdata.MongoTestData;
+import com.lishman.springdata.testdata.TestData;
 
 @ContextConfiguration(classes={MongoConfig.class})
-@ActiveProfiles("test")
 @RunWith(SpringJUnit4ClassRunner.class)
 public class StateRepositoryTest {
 
     @Autowired private StateRepository stateRepo;
-    
-    @Autowired private MongoTestData testData;
     @Autowired private MongoOperations mongoOps;
     
     @Before
     public void reset() {
-        testData.countriesTestData();
+        TestData.states();
     }
     
     //------------------------------------------------- paging to Page

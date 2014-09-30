@@ -19,6 +19,8 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 
+// TODO Custom mapping converter?
+
 public class ManualSetupTest {
     
     private MongoClient client;
