@@ -12,6 +12,25 @@ import com.lishman.springdata.domain.Country;
 // @RepositoryDefinition(domainClass=Country.class, idClass=BigInteger.class)
 
 public interface CountryRepository extends Repository<Country, BigInteger> {
+    
+    // TODO @Query
+    /* 
+     *  Uses store-specific query language.
+     *  Queries can be externalized.
+     *  
+     */
+
+    // TODO Query Methods
+    /* 
+     *  Query methods use query derivation.
+     *  Removes 'findBy', 'getBy' or 'readBy' then parses the rest.
+     *  
+     *  Property expressions
+     *  
+     *      findByAddressZipCode
+     *      findByAddress_ZipCode
+     *  
+     */
 
     //------------------------------------------- equality
     

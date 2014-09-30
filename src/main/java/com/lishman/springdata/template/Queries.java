@@ -3,95 +3,83 @@ package com.lishman.springdata.template;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
-import java.net.UnknownHostException;
+import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Component;
 
+import com.lishman.springdata.config.MongoConfig;
 import com.lishman.springdata.domain.Continent;
 import com.lishman.springdata.domain.Country;
-import com.lishman.springdata.testdata.MongoTestData;
-import com.mongodb.MongoClient;
 
+@Component
 public class Queries {
     
-    public static void main(String[] args) throws UnknownHostException {
+    @Autowired private MongoOperations mongoOps;
+    
+    public static void main(String[] args) {
+        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(MongoConfig.class);
+        Queries queries = ctx.getBean(Queries.class);
+        queries.useMongoTemplateForQueries();
+        ctx.close();
+    }
+    
+    private void useMongoTemplateForQueries() {
         
-        //------------------------------------------------- set up
+        setupTestData();
 
-        MongoClient client = new MongoClient("mongo-host");
-        MongoOperations mongoOps = new MongoTemplate(client, "world");
-        
-        MongoTestData testData = new MongoTestData();
-        testData.setMongoOperations(mongoOps);
-        testData.countriesTestData();
-        
         //------------------------------------------------- query document
 
         BasicQuery queryDoc = new BasicQuery("{ continent.name : 'Europe', area : { $gt : 50000 } }");
         List<Country> largeEuropean = mongoOps.find(queryDoc, Country.class);
         
-        System.out.println("Large European countries " + largeEuropean);
-        
         //------------------------------------------------- equality
         
         Continent asia = mongoOps.findOne(query(where("name").is("Asia")), Continent.class);
         
-        System.out.println("Continent name is " + asia.getName());
+        Query europeanQuery = query(where("continent.name").is("Europe"));
+        List<Country> europeanCountries = mongoOps.find(europeanQuery, Country.class);
         
         //------------------------------------------------- not equal to
         
         List<Continent> notAsia = mongoOps.find(query(where("name").ne("Asia")), Continent.class);
         
-        System.out.println("Continent other than Asia " + notAsia);
-        
         //------------------------------------------------- less than
         
         List<Country> smallCountries = mongoOps.find(query(where("area").lt(30000)), Country.class);
-        
-        System.out.println("Small countries " + smallCountries);
         
         //------------------------------------------------- between
         
         Criteria between = where("population").gt(5000000).lt(30000000);
         List<Country> popBetween = mongoOps.find(query(between), Country.class);
         
-        System.out.println("Medium populated countries " + popBetween);
-        
         //------------------------------------------------- in list
         
         List<Country> ghanaAndGambia = mongoOps.find(query(where("name").in("Ghana", "Gambia")), Country.class);
         List<Country> notGhanaAndGambia = mongoOps.find(query(where("name").nin("Ghana", "Gambia")), Country.class);
         
-        System.out.printf("Ghana and Gambia %s and the others %s\n", ghanaAndGambia, notGhanaAndGambia);
-        
         //------------------------------------------------- regular expression
 
         List<Country> regex = mongoOps.find(query(where("name").regex("G[ae].*")), Country.class);
-        
-        System.out.println("Starting with 'Ga' or 'Ge' " + regex);
         
         //------------------------------------------------- not
         
         List<Country> notRegex = mongoOps.find(query(where("name").not().regex("G[ae].*")), Country.class);
         
-        System.out.println("Not starting with 'Ga' or 'Ge' " + notRegex);
-        
         //------------------------------------------------- subdocument
         
         List<Country> asianCountries = mongoOps.find(query(where("continent.name").is("Asia")), Country.class);
-        
-        System.out.println("Asian countries " + asianCountries);
         
         //------------------------------------------------- and
         
         Criteria smallAreaAndBigPop = where("area").lt(500000).and("population").gt(30000000);
         List<Country> densePop = mongoOps.find(query(smallAreaAndBigPop), Country.class);
-        
-        System.out.println("Densely populated " + densePop);
         
         //------------------------------------------------- or
         
@@ -100,18 +88,13 @@ public class Queries {
         Criteria smallAreaOrPop = new Criteria().orOperator(smallArea, smallPop);
         List<Country> smallAreaOrSmallPop = mongoOps.find(query(smallAreaOrPop), Country.class);
         
-        System.out.println("Small area or population  " + smallAreaOrSmallPop);
-        
         //------------------------------------------------- and / or
         
         Criteria countries = where("name").regex("G[ae].*");
         Criteria andOr = new Criteria().andOperator(countries, smallAreaOrPop);
         List<Country> countryList = mongoOps.find(query(andOr), Country.class);
-        
-        System.out.println("Complex query  " + countryList);
 
-        System.out.println(andOr.getCriteriaObject()); 
-        /* outputs this query document..
+        /* produces this query document..
          
                { "$and" : [ 
                             { "name" : { "$regex" : "G[ae].*"}} , 
@@ -124,6 +107,30 @@ public class Queries {
                }
           
          */
+    }
+
+    private void setupTestData() {
+        if (mongoOps.collectionExists(Country.class)) {
+            mongoOps.dropCollection(Country.class);
+        }
+        
+        Country[] countries = new Country[] {
+            new Country("Australia", 2966200, 21884000L, new Continent(6, "Australia")),
+            new Country("Gabon", 103347, 1475000L, new Continent(1, "Africa")),
+            new Country("Gambia", 4361, 1705000L, new Continent(1, "Africa")),
+            new Country("Georgia", 26900, 4382100L, new Continent(3, "Europe")),
+            new Country("Germany", 137847, 82046000L, new Continent(3, "Europe")),
+            new Country("Ghana", 92098, 23837000L, new Continent(1, "Africa")),
+            new Country("Greece", 50949, 11257285L, new Continent(3, "Europe")),
+            new Country("Japan", 145925, 126659683L, new Continent(2, "Asia")),
+            new Country("New Zealand", 104454, 4320300L, new Continent(6, "Australia")),
+            new Country("Serbia", 34116, 7120666L, new Continent(3, "Europe")),
+            new Country("USA", 3794101, 316637000L, new Continent(4, "North America")),
+            new Country("Vietnam", 128565, 90388000L, new Continent(2, "Asia")),
+            new Country("Iceland", 39770, 321857L, new Continent(3, "Europe"))
+        };
+    
+        mongoOps.insertAll(Arrays.asList(countries));
     }
 }
 

@@ -8,6 +8,8 @@ import com.lishman.springdata.domain.OlympicMedals;
 
 public interface MedalsRepository extends Repository<OlympicMedals, BigInteger>,
                                           MedalsRepositoryCustom {
+    
+    // TODO custom repository methods
 
     public OlympicMedals findByCountryName(String name);
 

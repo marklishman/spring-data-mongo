@@ -1,16 +1,11 @@
 package com.lishman.springdata.domain;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
 import com.google.common.base.Objects;
 
-@Document
 public final class Continent {
-
-    @Id private long id;
     
-    private String name;
+    private final long id;
+    private final String name;
     
     public Continent(long id, String name) {
         this.id = id;

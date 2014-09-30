@@ -17,7 +17,10 @@ public class OlympicMedals extends AbstractDocument {
     @Field("name")
     private String countryName;
 
+    // TODO List<Integer> medals
+    // TODO No Map (Keys must be Strings)
     private List<Integer> medals = new ArrayList<Integer>();
+
 
     public OlympicMedals(String countryName, int gold, int silver, int bronze) {
         this.setCountryName(countryName);

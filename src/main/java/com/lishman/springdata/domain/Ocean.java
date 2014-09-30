@@ -17,6 +17,7 @@ public class Ocean extends AbstractDocument {
         this(BigInteger.valueOf(id), name, area);
     }
 
+    // TODO @PersistenceConstructor - page 84
     @PersistenceConstructor
     public Ocean(BigInteger id, String name, int area) {
         setId(id);

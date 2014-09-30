@@ -4,52 +4,63 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 import static org.springframework.data.mongodb.core.query.Update.update;
 
-import java.math.BigInteger;
-import java.net.UnknownHostException;
+import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.stereotype.Component;
 
+import com.lishman.springdata.config.MongoConfig;
 import com.lishman.springdata.domain.Continent;
 import com.lishman.springdata.domain.Country;
-import com.lishman.springdata.testdata.MongoTestData;
-import com.mongodb.MongoClient;
 
+@Component
 public class Crud {
     
-    public static void main(String[] args) throws UnknownHostException {
+    // TODO MongoOperations interface backed by a MongoTemplate implementation (page 94)
+    /*  - Resource management
+     *  - Exception translation
+     *  
+     *  Implementing a DAO with MongoOperations (page 94)
+     */
+    @Autowired private MongoOperations mongoOps;
+    
+    public static void main(String[] args) {
+        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(MongoConfig.class);
+        Crud crud = ctx.getBean(Crud.class);
+        crud.useMongoTemplateForCrud();
+        ctx.close();
+    }
+    
+    private void useMongoTemplateForCrud() {
 
-        //------------------------------------------------- set up
-        
-        MongoClient client = new MongoClient("mongo-host");
-        MongoOperations mongoOps = new MongoTemplate(client, "world");
-        
-        MongoTestData testData = new MongoTestData();
-        testData.setMongoOperations(mongoOps);
-        testData.countriesTestData();
-        
         //------------------------------------------------- create
+
+        if (mongoOps.collectionExists(Country.class)) {
+            mongoOps.dropCollection(Country.class);
+        }
         
-        Country iceland = new Country("Iceland", 39770, 321857L, new Continent(3, "Europe"));
-        mongoOps.insert(iceland);
+        Country[] countries = new Country[] {
+            new Country("Greece", 50949, 11257285L, new Continent(3, "Europe")),
+            new Country("Iceland", 39770, 321857L, new Continent(3, "Europe")),
+            new Country("New Zealand", 104454, 4320300L, new Continent(6, "Australia")),
+            new Country("Serbia", 34116, 7120666L, new Continent(3, "Europe")),
+            new Country("Vietnam", 128565, 90388000L, new Continent(2, "Asia"))
+        };
+        
+        mongoOps.insertAll(Arrays.asList(countries));
         
         //------------------------------------------------- read
         
-        List<Continent> continents = mongoOps.findAll(Continent.class);
-        System.out.println(continents);
+        List<Country> allCountries = mongoOps.findAll(Country.class);
         
-        Continent asia = mongoOps.findById(BigInteger.valueOf(2), Continent.class);
-        System.out.println("Continent name is " + asia.getName());
+        Country newZealand = mongoOps.findById(allCountries.get(2).getId(), Country.class);
         
         Country greece = mongoOps.findOne(query(where("name").is("Greece")), Country.class);
-        System.out.printf("%s is in %s\n", greece.getName(), greece.getContinent().getName());
-        
-        Query europeanQuery = query(where("continent.name").is("Europe"));
-        List<Country> europeanCountries = mongoOps.find(europeanQuery, Country.class);
-        System.out.println("Countries in Europe: " + europeanCountries);
         
         //------------------------------------------------- update
         
@@ -60,6 +71,6 @@ public class Crud {
         //------------------------------------------------- delete
         
         mongoOps.remove(query(where("_id").is("3")), Continent.class);
-        System.out.println(mongoOps.findAll(Continent.class));
     }
+
 }
