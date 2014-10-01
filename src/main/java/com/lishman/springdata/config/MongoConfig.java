@@ -28,6 +28,7 @@ public class MongoConfig extends AbstractMongoConfiguration {
         return "world";
     }
 
+    // TODO does this need to be a bean?
     @Override
     @Bean
     public MongoClient mongo() throws Exception {

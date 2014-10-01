@@ -1,6 +1,5 @@
 package com.lishman.springdata.domain;
 
-import com.google.common.base.Objects;
 
 public final class Continent {
     
@@ -21,9 +20,6 @@ public final class Continent {
     }
     
     public String toString() {
-        return Objects.toStringHelper(this)
-                .add("id", id)
-                .add("name", this.getName())
-                .toString();
+        return this.getName();
     }
 }

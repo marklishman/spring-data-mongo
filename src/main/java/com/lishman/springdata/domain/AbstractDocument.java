@@ -7,14 +7,14 @@ import org.springframework.data.annotation.Id;
 public class AbstractDocument {
 
     // TODO ObjectID - page 83
-    @Id private BigInteger id;
+    @Id private BigInteger documentId;
 
     public void setId(BigInteger id) {
-        this.id = id;
+        this.documentId = id;
     }
 
     public BigInteger getId() {
-        return id;
+        return documentId;
     }
 
 }

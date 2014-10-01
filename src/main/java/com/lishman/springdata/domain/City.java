@@ -18,8 +18,7 @@ public class City extends AbstractDocument {
     @DBRef
     private Country country;
 
-    public City(BigInteger id, String name, final Country country, List<String> attractions) {
-        this.setId(id);
+    public City(String name, final Country country, List<String> attractions) {
         this.setName(name);
         this.setCountry(country);
         this.setAttractions(attractions);

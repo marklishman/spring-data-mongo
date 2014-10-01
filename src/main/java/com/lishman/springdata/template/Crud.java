@@ -25,6 +25,10 @@ public class Crud {
     /*  - Resource management
      *  - Exception translation
      *  
+     *  - General purpose, high level methods 
+     *  - Low-level, callback driven methods
+     *  page 95
+     *  
      *  Implementing a DAO with MongoOperations (page 94)
      */
     @Autowired private MongoOperations mongoOps;
@@ -44,21 +48,26 @@ public class Crud {
             mongoOps.dropCollection(Country.class);
         }
         
+        Country vietnam = new Country("Vietnam", 128565, 90388000L, new Continent(2, "Asia"));
+        mongoOps.insert(vietnam);
+
         Country[] countries = new Country[] {
             new Country("Greece", 50949, 11257285L, new Continent(3, "Europe")),
             new Country("Iceland", 39770, 321857L, new Continent(3, "Europe")),
             new Country("New Zealand", 104454, 4320300L, new Continent(6, "Australia")),
-            new Country("Serbia", 34116, 7120666L, new Continent(3, "Europe")),
-            new Country("Vietnam", 128565, 90388000L, new Continent(2, "Asia"))
+            new Country("Serbia", 34116, 7120666L, new Continent(3, "Europe"))
         };
         
-        mongoOps.insertAll(Arrays.asList(countries));
+        mongoOps.insert(Arrays.asList(countries), Country.class);
         
         //------------------------------------------------- read
         
         List<Country> allCountries = mongoOps.findAll(Country.class);
         
         Country newZealand = mongoOps.findById(allCountries.get(2).getId(), Country.class);
+        
+        Query europeanQuery = query(where("continent.name").is("Europe"));
+        List<Country> europeanCountries = mongoOps.find(europeanQuery, Country.class);
         
         Country greece = mongoOps.findOne(query(where("name").is("Greece")), Country.class);
         

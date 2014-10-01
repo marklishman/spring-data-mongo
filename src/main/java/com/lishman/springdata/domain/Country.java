@@ -7,8 +7,6 @@ import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import com.google.common.base.Objects;
-
 // TODO @Document
 /* Optional.
  * Allows customization.
@@ -104,14 +102,4 @@ public class Country {
         return this.getName();
     }
     
-//    public String toString() {
-//        return Objects.toStringHelper(this)
-//                .add("id", id)
-//                .add("name", this.getName())
-//                .add("area", this.getAreaInSquareMiles())
-//                .add("population", this.getPopulation())
-//                .add("continent", this.getContinent().toString())
-//                .toString();
-//    }
-
 }

@@ -11,7 +11,6 @@ public interface SingleItemOnlyRepository<T, ID extends Serializable>
     
     // TODO fine tuning - expose only a subset of the methods
     
-    
     void delete(ID id);
     
     void delete(T entity);

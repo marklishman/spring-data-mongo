@@ -30,17 +30,11 @@ public class CityRepositoryTest {
 
     @Autowired private CityRepository cityRepo;
     @Autowired private MongoOperations mongoOps;
-
-    
-    @Autowired private MongoTestData testData;
-    
     
     @Before
     public void reset() {
-        // TODO fix the CityRepositoryTest
         TestData.countries();
         TestData.cities();
-//        testData.countriesTestData();
     }
     
     //------------------------------------------------- findByName
@@ -72,7 +66,6 @@ public class CityRepositoryTest {
     public void testFindOne() {
         City boston = cityRepo.findOne(BigInteger.valueOf(5));
         assertThat(boston.getName(), equalTo("Boston"));
-System.out.println(boston.getCountry());        
     }
     
     //------------------------------------------------- find all
@@ -98,7 +91,8 @@ System.out.println(boston.getCountry());
     @Test
     public void testInsert() {
         Country usa = mongoOps.findOne(query(where("name").is("USA")), Country.class);
-        City chicago = new City(BigInteger.valueOf(6), "Chicago", usa, Arrays.asList(new String[]{"Navy Pier", "Skyline Lake Tour", "SkyShedd Aquarium"}));
+        City chicago = new City("Chicago", usa, Arrays.asList(new String[]{"Navy Pier", "Skyline Lake Tour", "SkyShedd Aquarium"}));
+        chicago.setId(new BigInteger("6"));
         
         City chicagoInserted = cityRepo.save(chicago);
         
