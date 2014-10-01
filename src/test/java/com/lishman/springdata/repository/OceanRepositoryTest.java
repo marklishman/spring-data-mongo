@@ -6,9 +6,12 @@ import static org.junit.Assert.assertThat;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.test.context.ContextConfiguration;
@@ -24,9 +27,11 @@ public class OceanRepositoryTest {
 
     @Autowired private OceanRepository oceanRepo;
     
+    @Rule public ExpectedException exception = ExpectedException.none();  
+    
     @Before
     public void reset() {
-        TestData.continents();
+        TestData.oceans();
     }
 
     //------------------------------------------------- find all to list
@@ -34,7 +39,7 @@ public class OceanRepositoryTest {
     @Test
     public void testFindAllToList() {
         List<Ocean> oceans = oceanRepo.findAll();
-        assertThat(oceans.toString(), equalTo("[Artic, Atlantic, Indian, Pacific, Southern]"));
+        assertThat(oceans.toString(), equalTo("[Arctic, Atlantic, Indian, Pacific, Southern]"));
     }
     
     //------------------------------------------------- sort all to list
@@ -43,6 +48,16 @@ public class OceanRepositoryTest {
     public void testSortingAllToList() {
         Sort sortDescending = new Sort(Direction.DESC, "area");
         List<Ocean> oceans = oceanRepo.findAll(sortDescending);
-        assertThat(oceans.toString(), equalTo("[Pacific, Atlantic, Indian, Southern, Artic]"));
+        assertThat(oceans.toString(), equalTo("[Pacific, Atlantic, Indian, Southern, Arctic]"));
+    }
+    
+    //------------------------------------------------- duplicate
+    
+    @Test
+    public void testDuplicateNameCannotBeInserted() {
+        exception.expect(DuplicateKeyException.class);
+        
+        Ocean arctic = new Ocean("Arctic", 123456);
+        oceanRepo.save(arctic);
     }
 }

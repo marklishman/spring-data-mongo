@@ -24,14 +24,6 @@ public class Country {
     // TODO @Id - optional
     @Id private BigInteger id;
 
-    // TODO @Index
-    /* Programatically or annotation
-     * Unique.
-     * Index is lost if collection is dropped.
-     * Include example of DuplicateKeyException.
-     */
-    // TODO @CompoundIndex
-//    @Indexed(name="countryName", unique=true)
     private String name;
 
     @Field("area")

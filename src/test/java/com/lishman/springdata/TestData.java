@@ -2,6 +2,7 @@ package com.lishman.springdata;
 
 import java.net.UnknownHostException;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
@@ -34,9 +35,17 @@ public class TestData {
         DB db = client.getDB( "world" );
         
         DBCollection oceans = db.getCollection("oceans");
-        oceans.drop();
         
-        oceans.insert(dbObjectFromJson("{_id : 1, name : 'Artic', area: 5426000}"));
+        /* remove(..) is used instead of drop() to preserve the index.
+         * 
+         * The index is created when the application context is initialized.
+         * If drop() were used here, it would delete the collection AND the
+         * index when running the integration tests.
+         */
+        
+        oceans.remove(new BasicDBObject());
+        
+        oceans.insert(dbObjectFromJson("{_id : 1, name : 'Arctic', area: 5426000}"));
         oceans.insert(dbObjectFromJson("{_id : 2, name : 'Atlantic', area: 29630000}"));
         oceans.insert(dbObjectFromJson("{_id : 3, name : 'Indian', area: 26463000}"));
         oceans.insert(dbObjectFromJson("{_id : 4, name : 'Pacific', area: 60045000}"));
@@ -47,14 +56,6 @@ public class TestData {
         
         MongoClient client = mongoClient();
         DB db = client.getDB( "world");
-        
-        // TODO Remove rather than drop for indexes
-        /* remove() instead of dropCollection() to preserve index
-         * 
-         * If dropCollection() were used, the index would be
-         * created on startup and this would delete the collection
-         * AND the index.
-         */
 
         DBCollection countries = db.getCollection("countries");
         countries.drop();

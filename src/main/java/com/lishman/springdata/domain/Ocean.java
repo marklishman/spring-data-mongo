@@ -1,26 +1,28 @@
 package com.lishman.springdata.domain;
 
-import java.math.BigInteger;
-
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.annotation.TypeAlias;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection="oceans")
 @TypeAlias("ocean")
 public class Ocean extends AbstractDocument {
 
+    // TODO @Index
+    /* Programatically or annotation
+     * Unique.
+     * Index is lost if collection is dropped.
+     * Include example of DuplicateKeyException.
+     */
+    // TODO @CompoundIndex
+    @Indexed(name="oceanName", unique=true)
     private String name;
     private int area;
     
-    public Ocean(int id, String name, int area) {
-        this(BigInteger.valueOf(id), name, area);
-    }
-
     // TODO @PersistenceConstructor - page 84
     @PersistenceConstructor
-    public Ocean(BigInteger id, String name, int area) {
-        setId(id);
+    public Ocean(String name, int area) {
         setName(name);
         setArea(area);
     }

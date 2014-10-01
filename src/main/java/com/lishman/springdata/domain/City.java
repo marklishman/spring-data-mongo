@@ -1,6 +1,5 @@
 package com.lishman.springdata.domain;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.data.annotation.TypeAlias;

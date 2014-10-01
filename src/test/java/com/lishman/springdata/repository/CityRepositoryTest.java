@@ -22,9 +22,8 @@ import com.lishman.springdata.TestData;
 import com.lishman.springdata.config.MongoConfig;
 import com.lishman.springdata.domain.City;
 import com.lishman.springdata.domain.Country;
-import com.lishman.springdata.testdata.MongoTestData;
 
-@ContextConfiguration(classes={MongoConfig.class, MongoTestData.class})
+@ContextConfiguration(classes={MongoConfig.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class CityRepositoryTest {
 
