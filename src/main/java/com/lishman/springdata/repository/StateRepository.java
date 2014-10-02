@@ -11,16 +11,6 @@ import com.lishman.springdata.domain.State;
 
 public interface StateRepository extends PagingAndSortingRepository<State, BigInteger> {
 
-    // TODO Pagination and Sorting (page 18)
-    /*
-     *  - Pageable
-     *  - PageRequest
-     *  - Page
-     *  
-     *  MetaData (totals page count) triggers second request
-     */
-    
-    
     public List<State> findByCapitalSinceGreaterThan(int since, Pageable pageable);
 
     public List<State> findByDateOfStatehoodGreaterThan(int since, Sort sort);

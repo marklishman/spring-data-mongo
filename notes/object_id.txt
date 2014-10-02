@@ -1,0 +1,6 @@
+
+
+BigInteger explanation - page 83
+
+Use ObjectId in one of the apps that uses the main method.
+Use explicit ids for integration tests.

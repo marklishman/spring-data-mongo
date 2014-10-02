@@ -9,8 +9,6 @@ import org.springframework.data.repository.Repository;
 public interface SingleItemOnlyRepository<T, ID extends Serializable> 
             extends Repository<T, ID>{
     
-    // TODO fine tuning - expose only a subset of the methods
-    
     void delete(ID id);
     
     void delete(T entity);

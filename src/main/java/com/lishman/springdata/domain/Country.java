@@ -7,21 +7,10 @@ import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-// TODO @Document
-/* Optional.
- * Allows customization.
- * Specify name of collection.
- * Scan for docs to be persisted.
- * Mapping info set up during init.
- * Slight performance benefit.
- */
 @Document(collection="countries")
 @TypeAlias("ctry")
 public class Country {
     
-    // TODO immutable object
-    
-    // TODO @Id - optional
     @Id private BigInteger id;
 
     private String name;
@@ -29,22 +18,9 @@ public class Country {
     @Field("area")
     private Integer areaInSquareMiles;
 
-    // TODO @Field 
-    /* Optional.
-     * Allows customization.
-     * Property is mapped to a field in a DBObject.
-     * Name is duplicated in each document.
-     * Allows a shorter name to be used.
-     */
     @Field("pop")
     private Long population;
 
-    // TODO Nested document
-    /* This document (Country) is the Aggregate Root.
-     * Subdocuments (Continent) must be accessed via the aggregate root.
-     * Insert is an atomic operation.
-     * Prejoined data. 
-     */
     private Continent continent;
 
     public Country(String name, Integer areaInSquareMiles, Long population, Continent continent) {

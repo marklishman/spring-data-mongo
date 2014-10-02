@@ -12,10 +12,6 @@ import com.lishman.springdata.template.TemplatePackage;
 import com.mongodb.MongoClient;
 import com.mongodb.WriteConcern;
 
-// TODO JavaConfig - page 90
-/* Include XML configuration.
- */
-
 @Configuration
 @EnableMongoRepositories(basePackageClasses=RepositoryPackage.class)
 @ComponentScan(basePackageClasses=TemplatePackage.class)
@@ -28,7 +24,6 @@ public class MongoConfig extends AbstractMongoConfiguration {
         return "world";
     }
 
-    // TODO does this need to be a bean?
     @Override
     @Bean
     public MongoClient mongo() throws Exception {

@@ -4,6 +4,7 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 import static org.springframework.data.mongodb.core.query.Update.update;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,16 +22,6 @@ import com.lishman.springdata.domain.Country;
 @Component
 public class Crud {
     
-    // TODO MongoOperations interface backed by a MongoTemplate implementation (page 94)
-    /*  - Resource management
-     *  - Exception translation
-     *  
-     *  - General purpose, high level methods 
-     *  - Low-level, callback driven methods
-     *  page 95
-     *  
-     *  Implementing a DAO with MongoOperations (page 94)
-     */
     @Autowired private MongoOperations mongoOps;
     
     public static void main(String[] args) {
@@ -64,7 +55,8 @@ public class Crud {
         
         List<Country> allCountries = mongoOps.findAll(Country.class);
         
-        Country newZealand = mongoOps.findById(allCountries.get(2).getId(), Country.class);
+        BigInteger newZealandId = allCountries.get(3).getId();
+        Country newZealand = mongoOps.findById(newZealandId, Country.class);
         
         Query europeanQuery = query(where("continent.name").is("Europe"));
         List<Country> europeanCountries = mongoOps.find(europeanQuery, Country.class);

@@ -13,7 +13,6 @@ public class City extends AbstractDocument {
     private String name;
     private List<String> attractions;
    
-    // TODO @DBRef - foreign key
     @DBRef
     private Country country;
 

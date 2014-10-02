@@ -50,11 +50,6 @@ public class CountryRepositoryTest {
 
     //------------------------------------------------- not equal
 
-    // TODO using toString to test
-    /*
-     * Should this be using a custom matcher?
-     */
-    
     @Test
     public void testFindByNameNotEqual() {
         List<Country> notJapan = countryRepo.findByNameNot("Japan");

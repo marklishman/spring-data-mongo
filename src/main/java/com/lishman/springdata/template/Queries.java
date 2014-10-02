@@ -33,11 +33,6 @@ public class Queries {
     private void useMongoTemplateForQueries() {
         
         setupTestData();
-
-        //------------------------------------------------- query document
-
-        BasicQuery queryDoc = new BasicQuery("{ continent.name : 'Europe', area : { $gt : 50000 } }");
-        List<Country> largeEuropean = mongoOps.find(queryDoc, Country.class);
         
         //------------------------------------------------- equality
         
@@ -107,7 +102,15 @@ public class Queries {
                }
           
          */
+
+        //------------------------------------------------- query document
+    
+        BasicQuery queryDoc = new BasicQuery("{ continent.name : 'Europe', area : { $gt : 50000 } }");
+        List<Country> largeEuropean = mongoOps.find(queryDoc, Country.class);
+        
     }
+    
+    //------------------------------------------------- test data
 
     private void setupTestData() {
         if (mongoOps.collectionExists(Country.class)) {

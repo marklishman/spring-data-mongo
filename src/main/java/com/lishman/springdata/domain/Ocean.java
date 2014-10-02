@@ -9,18 +9,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @TypeAlias("ocean")
 public class Ocean extends AbstractDocument {
 
-    // TODO @Index
-    /* Programatically or annotation
-     * Unique.
-     * Index is lost if collection is dropped.
-     * Include example of DuplicateKeyException.
-     */
-    // TODO @CompoundIndex
     @Indexed(name="oceanName", unique=true)
     private String name;
     private int area;
     
-    // TODO @PersistenceConstructor - page 84
     @PersistenceConstructor
     public Ocean(String name, int area) {
         setName(name);
