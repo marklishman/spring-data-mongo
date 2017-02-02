@@ -1,4 +1,0 @@
-
-Create application context XML file.
-
-Include commented out code showing how to use it.
