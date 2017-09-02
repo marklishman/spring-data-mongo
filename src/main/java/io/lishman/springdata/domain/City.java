@@ -1,10 +1,10 @@
 package io.lishman.springdata.domain;
 
-import java.util.List;
-
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
 
 @Document(collection="cities")
 @TypeAlias("city")
